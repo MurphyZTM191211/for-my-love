@@ -911,18 +911,6 @@ h1 span {
   cursor: pointer;
 }
 
-.spark {
-  position: fixed;
-  pointer-events: none;
-  z-index: 20;
-  animation: sparkle 1.3s ease-out forwards;
-}
-
-@keyframes sparkle {
-  from { transform: translate(0, 0) scale(1); opacity: 1; }
-  to { transform: translate(var(--x), var(--y)) rotate(180deg) scale(0); opacity: 0; }
-}
-
 .signature {
   margin-top: 1.8rem;
   font-family: "Cormorant Garamond", serif;
