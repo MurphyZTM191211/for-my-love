@@ -97,6 +97,7 @@ passwordForm.addEventListener('submit', (event) => {
 
 loveButton.addEventListener('click', () => {
   loveButton.textContent = 'I love you more😘😘';
+  });
 
   passwordError.textContent = 'That code is not quite right — try again, sweetheart 💕';
   secretPassword.select();
