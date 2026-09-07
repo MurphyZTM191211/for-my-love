@@ -53,7 +53,30 @@ const secretPassword = document.getElementById('secretPassword');
 const passwordError = document.getElementById('passwordError');
 const passwordGate = document.getElementById('passwordGate');
 const secretContent = document.getElementById('secretContent');
+const loveButton = document.getElementById('secretloveButton');
 const closeModalButtons = document.querySelectorAll('[data-close-modal]');
+
+const celebrateSprinkles = () => {
+  const sprinkleLayer = document.createElement('div');
+  sprinkleLayer.className = 'sprinkle-layer';
+  const shapes = ['❤', '✦', '✧', '●', '◆'];
+  const colors = ['rose', 'peach', 'lavender', 'white'];
+
+  for (let i = 0; i < 28; i += 1) {
+    const sprinkle = document.createElement('span');
+    sprinkle.className = 'sprinkle';
+    sprinkle.textContent = shapes[i % shapes.length];
+    sprinkle.classList.add(colors[i % colors.length]);
+    sprinkle.style.setProperty('--x', `${(Math.random() - 0.5) * 95}vw`);
+    sprinkle.style.setProperty('--y', `${-Math.random() * 75 - 10}vh`);
+    sprinkle.style.setProperty('--rotate', `${Math.random() * 720 - 360}deg`);
+    sprinkle.style.setProperty('--delay', `${Math.random() * 0.15}s`);
+    sprinkleLayer.appendChild(sprinkle);
+  }
+
+  document.body.appendChild(sprinkleLayer);
+  setTimeout(() => sprinkleLayer.remove(), 1200);
+};
 
 const openModal = () => {
   secretModal.classList.add('open');
@@ -83,6 +106,16 @@ const closeLetter = () => {
 secretBtn.addEventListener('click', openModal);
 openLetterBtn.addEventListener('click', openLetter);
 quizBtn.addEventListener('click', openModal);
+loveButton.addEventListener('click', () => {
+  if (loveButton.textContent === 'I love you😘😘') {
+    loveButton.textContent = 'I love you more😘😘';
+    return;
+  }
+
+  celebrateSprinkles();
+  closeModal();
+  loveButton.textContent = 'I love you😘😘';
+});
 
 passwordForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -93,11 +126,6 @@ passwordForm.addEventListener('submit', (event) => {
     passwordError.textContent = '';
     return;
   }
-  const loveButton = document.getElementById('loveButton');
-
-loveButton.addEventListener('click', () => {
-  loveButton.textContent = 'I love you more😘😘';
-  });
 
   passwordError.textContent = 'That code is not quite right — try again, sweetheart 💕';
   secretPassword.select();
@@ -123,4 +151,8 @@ screenLinks.forEach((link) => {
 
 const initialScreen = window.location.hash.slice(1);
 const validScreen = [...screens].some((screen) => screen.id === initialScreen);
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
 showScreen(validScreen ? initialScreen : 'story');
+window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
