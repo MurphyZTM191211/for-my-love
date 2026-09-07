@@ -840,6 +840,42 @@ h1 span {
   color: rgba(255, 255, 255, 0.82);
 }
 
+.sprinkle-layer {
+  position: fixed;
+  inset: 50% 0 auto;
+  height: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.sprinkle {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  font-size: clamp(1rem, 2vw, 1.6rem);
+  opacity: 0;
+  animation: sprinkleBurst 1s var(--delay) ease-out forwards;
+}
+
+.sprinkle.rose { color: var(--rose-strong); }
+.sprinkle.peach { color: var(--peach); }
+.sprinkle.lavender { color: var(--lavender); }
+.sprinkle.white { color: var(--white); }
+
+@keyframes sprinkleBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), var(--y)) scale(1.15) rotate(var(--rotate));
+  }
+}
+
 .password-form {
   display: grid;
   gap: 0.75rem;
