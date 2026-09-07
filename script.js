@@ -29,7 +29,7 @@ const navPills = document.querySelectorAll('.nav-pill');
 const screens = document.querySelectorAll('.screen');
 const screenLinks = document.querySelectorAll('[data-screen]');
 
-const showScreen = (screenId) => {
+const showScreen = (screenId, updateUrl = true) => {
   screens.forEach((screen) => {
     screen.classList.toggle('active-screen', screen.id === screenId);
   });
@@ -38,7 +38,9 @@ const showScreen = (screenId) => {
     pill.classList.toggle('active', pill.dataset.screen === screenId);
   });
 
-  history.replaceState(null, '', `#${screenId}`);
+  if (updateUrl) {
+    history.replaceState(null, '', `#${screenId}`);
+  }
 };
 
 const openLetterBtn = document.getElementById('openLetterBtn');
@@ -154,5 +156,8 @@ const validScreen = [...screens].some((screen) => screen.id === initialScreen);
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
-showScreen(validScreen ? initialScreen : 'story');
-window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+showScreen(validScreen ? initialScreen : 'story', false);
+history.replaceState(null, '', window.location.pathname + window.location.search);
+window.addEventListener('load', () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+});
