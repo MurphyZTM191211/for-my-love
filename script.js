@@ -48,7 +48,6 @@ const letterNextButtons = document.querySelectorAll('.letter-next');
 const secretBtn = document.getElementById('secretBtn');
 const quizBtn = document.getElementById('quizBtn');
 const secretModal = document.getElementById('secretModal');
-const surpriseBtn = document.getElementById('surpriseBtn');
 const passwordForm = document.getElementById('passwordForm');
 const secretPassword = document.getElementById('secretPassword');
 const passwordError = document.getElementById('passwordError');
@@ -81,31 +80,9 @@ const closeLetter = () => {
   letterModal.setAttribute('aria-hidden', 'true');
 };
 
-const createSparkles = () => {
-  const symbols = ['✦', '♡', '✧', '❤', '⋆'];
-  for (let i = 0; i < 28; i += 1) {
-    const spark = document.createElement('span');
-    spark.className = 'spark';
-    spark.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    spark.style.left = '50%';
-    spark.style.top = '50%';
-    spark.style.color = i % 2 ? '#ffd7a8' : '#ff9ec7';
-    spark.style.fontSize = `${Math.random() * 1.1 + 0.8}rem`;
-    spark.style.setProperty('--x', `${(Math.random() - 0.5) * 90}vw`);
-    spark.style.setProperty('--y', `${(Math.random() - 0.5) * 90}vh`);
-    document.body.appendChild(spark);
-    setTimeout(() => spark.remove(), 1400);
-  }
-};
-
 secretBtn.addEventListener('click', openModal);
 openLetterBtn.addEventListener('click', openLetter);
 quizBtn.addEventListener('click', openModal);
-surpriseBtn.addEventListener('click', () => {
-  createSparkles();
-  surpriseBtn.textContent = 'You are my forever surprise 💖';
-  surpriseBtn.disabled = true;
-});
 
 passwordForm.addEventListener('submit', (event) => {
   event.preventDefault();
