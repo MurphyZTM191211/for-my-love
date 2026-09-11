@@ -229,6 +229,7 @@ footer {
   display: flex;
   gap: 0.7rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .secret-button {
@@ -458,7 +459,8 @@ h1 span {
 .reason-box,
 .promise-card,
 .closing,
-.slide-card {
+.slide-card,
+.timer-card {
   background: var(--card);
   border: 1px solid var(--card-border);
   border-radius: 26px;
@@ -606,6 +608,32 @@ h1 span {
   text-align: center;
   position: relative;
   overflow: hidden;
+}
+
+.timer-card {
+  max-width: 820px;
+  margin: 1.25rem auto 0;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.love-timer-value {
+  margin: 1.1rem 0 0.6rem;
+  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 0.12rem;
+  color: #ffe6f1;
+  text-shadow: 0 0 18px rgba(255, 170, 210, 0.5);
+}
+
+.timer-caption {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .letter-card {
