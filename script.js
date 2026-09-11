@@ -28,8 +28,25 @@ for (let i = 0; i < 4; i += 1) {
 const navPills = document.querySelectorAll('.nav-pill');
 const screens = document.querySelectorAll('.screen');
 const screenLinks = document.querySelectorAll('[data-screen]');
+const loveTimer = document.getElementById('loveTimer');
+const startDate = new Date('2026-07-26T00:00:00');
 
-const showScreen = (screenId, updateUrl = true) => {
+const formatDuration = (totalSeconds) => {
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(days).padStart(2, '0')}d ${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+};
+
+const updateLoveTimer = () => {
+  if (!loveTimer) return;
+  const now = new Date();
+  const diffSeconds = Math.max(0, Math.floor((now - startDate) / 1000));
+  loveTimer.textContent = formatDuration(diffSeconds);
+};
+
+const showScreen = (screenId) => {
   screens.forEach((screen) => {
     screen.classList.toggle('active-screen', screen.id === screenId);
   });
@@ -37,10 +54,6 @@ const showScreen = (screenId, updateUrl = true) => {
   navPills.forEach((pill) => {
     pill.classList.toggle('active', pill.dataset.screen === screenId);
   });
-
-  if (updateUrl) {
-    history.replaceState(null, '', `#${screenId}`);
-  }
 };
 
 const openLetterBtn = document.getElementById('openLetterBtn');
@@ -151,13 +164,11 @@ screenLinks.forEach((link) => {
   });
 });
 
-const initialScreen = window.location.hash.slice(1);
-const validScreen = [...screens].some((screen) => screen.id === initialScreen);
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
-}
-showScreen(validScreen ? initialScreen : 'story', false);
-history.replaceState(null, '', window.location.pathname + window.location.search);
+const initialScreen = 'story';
+showScreen(initialScreen);
+updateLoveTimer();
+setInterval(updateLoveTimer, 1000);
+window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 window.addEventListener('load', () => {
   window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
 });
