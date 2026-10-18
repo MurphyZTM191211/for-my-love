@@ -577,6 +577,173 @@ h1 span {
   gap: 1.3rem;
 }
 
+.nickname-panel {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  max-width: 900px;
+  margin: 2.25rem auto 0;
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+  border: 1px solid rgba(255, 221, 235, 0.55);
+  border-radius: 36px;
+  background:
+    radial-gradient(circle at 18% 26%, rgba(255, 255, 255, 0.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 70%, rgba(255, 255, 255, 0.1) 0 1px, transparent 2px),
+    radial-gradient(ellipse at 50% 0%, rgba(255, 215, 168, 0.23), transparent 50%),
+    radial-gradient(circle at 5% 100%, rgba(255, 95, 162, 0.2), transparent 36%),
+    linear-gradient(135deg, rgba(255, 168, 205, 0.2), rgba(214, 198, 255, 0.17));
+  box-shadow:
+    0 28px 70px rgba(255, 116, 180, 0.22),
+    inset 0 0 0 6px rgba(255, 255, 255, 0.035),
+    inset 0 1px rgba(255, 255, 255, 0.18);
+  animation: nicknameGlow 5s ease-in-out infinite;
+}
+
+.nickname-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.nickname-panel .nickname-list::before,
+.nickname-panel .nickname-list::after {
+  content: "✧";
+  position: absolute;
+  z-index: -1;
+  color: rgba(255, 248, 251, 0.34);
+  font-size: 1.5rem;
+  animation: nicknameTwinkle 3s ease-in-out infinite;
+}
+
+.nickname-panel .nickname-list::before {
+  top: -0.8rem;
+  left: 16%;
+}
+
+.nickname-panel .nickname-list::after {
+  right: 16%;
+  bottom: -0.8rem;
+  animation-delay: 1.5s;
+}
+
+@keyframes nicknameGlow {
+  0%, 100% {
+    box-shadow: 0 24px 60px rgba(255, 116, 180, 0.16), inset 0 0 0 5px rgba(255, 255, 255, 0.025), inset 0 1px rgba(255, 255, 255, 0.18);
+  }
+  50% {
+    box-shadow: 0 28px 68px rgba(255, 116, 180, 0.25), inset 0 0 0 5px rgba(255, 255, 255, 0.04), inset 0 1px rgba(255, 255, 255, 0.22);
+  }
+}
+
+@keyframes nicknameTwinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.8) rotate(-10deg); }
+  50% { opacity: 1; transform: scale(1.15) rotate(12deg); }
+}
+
+.nickname-panel::before,
+.nickname-panel::after {
+  position: absolute;
+  color: rgba(255, 215, 168, 0.48);
+  pointer-events: none;
+}
+
+.nickname-panel::before {
+  content: "✦";
+  top: 1.1rem;
+  left: 1.2rem;
+  font-size: 1.6rem;
+  text-shadow: 0 0 18px rgba(255, 215, 168, 0.7);
+}
+
+.nickname-panel::after {
+  content: "♡";
+  right: 1.2rem;
+  bottom: 0.65rem;
+  font-size: 2.5rem;
+  text-shadow: 0 0 20px rgba(255, 123, 189, 0.55);
+}
+
+.nickname-panel .mini-label {
+  text-align: center;
+  margin: 0 0 1.6rem;
+  color: #ffe2ee;
+  text-shadow: 0 0 14px rgba(255, 215, 168, 0.25), 0 0 28px rgba(255, 123, 189, 0.28);
+}
+
+.nickname-panel .mini-label::before,
+.nickname-panel .mini-label::after {
+  content: " ── ✧ ";
+  display: inline-block;
+  padding: 0 0.5rem;
+  color: var(--rose-soft);
+  letter-spacing: 0;
+}
+
+.nickname-panel .mini-label::after {
+  content: " ✧ ── ";
+}
+
+.nickname-panel .mini-label::before,
+.nickname-panel .mini-label::after {
+  text-shadow: 0 0 12px rgba(255, 123, 189, 0.75);
+}
+
+.nickname-list {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.7rem 2.5rem;
+}
+
+.nickname-list span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff8fb;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.7rem, 3.4vw, 2.3rem);
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  text-transform: lowercase;
+  text-shadow: 0 2px 14px rgba(255, 123, 189, 0.48);
+  transition: color 0.2s ease, transform 0.2s ease, text-shadow 0.2s ease;
+  animation: nicknameFloat 3.8s ease-in-out infinite;
+}
+
+.nickname-list span:nth-child(odd) {
+  color: #ffe8f2;
+}
+
+.nickname-list span:nth-child(2) {
+  animation-delay: 0.45s;
+  color: #f0e5ff;
+}
+
+.nickname-list span:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+@keyframes nicknameFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.nickname-list span:not(:last-child)::after {
+  content: "♥";
+  margin-left: 0.7rem;
+  color: var(--rose-soft);
+  font-size: 0.72rem;
+  text-shadow: 0 0 12px rgba(255, 123, 189, 0.65);
+}
+
+.nickname-list span:hover {
+  transform: translateY(-2px) scale(1.04);
+  color: var(--rose-soft);
+  text-shadow: 0 0 22px rgba(255, 123, 189, 0.7);
+}
+
 .reason-box {
   padding: 1.5rem 1.2rem;
   text-align: center;
